@@ -3,7 +3,7 @@ using BinancePayDotnetSdk.Common.Enums;
 
 namespace BinancePayDotnetSdk.Common.Models
 {
-    public class ApiResponseModel<TData> where TData : ApiResponseDataModel
+    public class ApiResponseModel<TData>
     {
         /// <summary>
         /// "SUCCESS" or "FAIL"

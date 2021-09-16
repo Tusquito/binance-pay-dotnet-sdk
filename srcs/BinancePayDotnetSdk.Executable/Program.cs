@@ -26,10 +26,12 @@ namespace BinancePayDotnetSdk.Executable
             var test = await client.CreateOrderAsync(new CreateOrderForm
             {
                 MerchantTradeNo = random.Next().ToString(),
-                ProductDetail = "Test detail",
-                ProductName = "Test product name",
-                TotalFee = 25.17,
+                ProductName = "Test Product Name",
+                ProductDetail = "Test Product Detail",
+                TotalFee = 0.5
             });
+            
+            Console.WriteLine(test.Data.QrCodeLink);
         }
     }
 }

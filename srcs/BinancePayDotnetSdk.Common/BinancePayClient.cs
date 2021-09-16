@@ -50,15 +50,28 @@ namespace BinancePayDotnetSdk.Common
             _httpClient = new BinancePayHttpClient(configuration);
         }
 
-        public async Task<ApiResponseModel<CreateOrderDataModel>> CreateOrderAsync(CreateOrderForm form)
+        public async Task<CreateOrderResponseModel> CreateOrderAsync(CreateOrderForm form)
         {
             try
             {
-                return await _httpClient.PostAsync<CreateOrderForm, ApiResponseModel<CreateOrderDataModel>>(BinanceApiEndPoints.CreateOrder, form);
+                return await _httpClient.PostAsync<CreateOrderForm, CreateOrderResponseModel>(BinanceApiEndPoints.CreateOrder, form);
             }
             catch (Exception e)
             {
                 ClientLogger.Error($"{nameof(CreateOrderAsync)}", e);
+                return null;
+            }
+        }
+        
+        public async Task<CloseOrderResponseModel> CloseOrderAsync(CloseOrderForm form)
+        {
+            try
+            {
+                return await _httpClient.PostAsync<CloseOrderForm, CloseOrderResponseModel>(BinanceApiEndPoints.CloseOrder, form);
+            }
+            catch (Exception e)
+            {
+                ClientLogger.Error($"{nameof(CloseOrderAsync)}", e);
                 return null;
             }
         }

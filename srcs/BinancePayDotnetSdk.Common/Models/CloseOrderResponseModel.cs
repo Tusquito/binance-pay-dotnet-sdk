@@ -1,6 +1,6 @@
 ﻿namespace BinancePayDotnetSdk.Common.Models
 {
-    public class ApiResponseDataModel
+    public class CloseOrderResponseModel : ApiResponseModel<bool>
     {
         
     }

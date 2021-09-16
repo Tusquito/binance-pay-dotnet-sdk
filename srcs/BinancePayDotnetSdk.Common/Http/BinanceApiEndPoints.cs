@@ -4,5 +4,7 @@
     {
         // POST
         public const string CreateOrder = "/binancepay/openapi/order";
+        // POST
+        public const string CloseOrder = "/binancepay/openapi/order/close";
     }
 }

@@ -6,18 +6,6 @@ namespace BinancePayDotnetSdk.Common.Forms
     public class CreateOrderForm : ApiRequestForm
     {
         /// <summary>
-        /// The sub merchant account id, issued when sub merchant been created at Binance,
-        /// The parameter subMerchantId is required when configuring show subMerchant info.
-        /// </summary>
-        [JsonPropertyName("subMerchantId")]
-        public string SubMerchantId { get; set; }
-        /// <summary>
-        /// The order id, Unique identifier for the request.
-        /// letter or digit, no other symbol allowed, maximum length 32
-        /// </summary>
-        [JsonPropertyName("merchantTradeNo")]
-        public string MerchantTradeNo { get; set; }
-        /// <summary>
         /// Order amount.
         /// minimum unit: 0.01, minimum equivalent value: 0.5 USD
         /// </summary>
