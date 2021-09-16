@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinancePayDotnetSdk.Common", "srcs\BinancePayDotnetSdk.Common\BinancePayDotnetSdk.Common.csproj", "{2FC1ED26-DA3E-4359-A466-51DD25F38655}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinancePayDotnetSdk.Executable", "srcs\BinancePayDotnetSdk.Executable\BinancePayDotnetSdk.Executable.csproj", "{66D056A7-E93E-4D30-B673-B4E8D8D77851}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2FC1ED26-DA3E-4359-A466-51DD25F38655}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC1ED26-DA3E-4359-A466-51DD25F38655}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FC1ED26-DA3E-4359-A466-51DD25F38655}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC1ED26-DA3E-4359-A466-51DD25F38655}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66D056A7-E93E-4D30-B673-B4E8D8D77851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D056A7-E93E-4D30-B673-B4E8D8D77851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D056A7-E93E-4D30-B673-B4E8D8D77851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D056A7-E93E-4D30-B673-B4E8D8D77851}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
