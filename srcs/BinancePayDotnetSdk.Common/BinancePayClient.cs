@@ -75,5 +75,24 @@ namespace BinancePayDotnetSdk.Common
                 return null;
             }
         }
+        
+        public async Task<QueryOrderResponseModel> QueryOrderAsync(QueryOrderForm form)
+        {
+            try
+            {
+                if(!string.IsNullOrEmpty(form.PrepayId) && !string.IsNullOrEmpty(form.MerchantTradeNo))
+                {
+                    throw new ArgumentException(
+                        "You can't query orders by merchantTradeNo and prepayId at the same time, please choose one and try again.");
+                }
+                
+                return await _httpClient.PostAsync<QueryOrderForm, QueryOrderResponseModel>(BinanceApiEndPoints.QueryOrder, form);
+            }
+            catch (Exception e)
+            {
+                ClientLogger.Error($"{nameof(QueryOrderAsync)}", e);
+                return null;
+            }
+        }
     }
 }

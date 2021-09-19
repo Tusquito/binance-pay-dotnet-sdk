@@ -6,7 +6,6 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using BinancePayDotnetSdk.Common.Forms;
-using BinancePayDotnetSdk.Common.Models;
 using BinancePayDotnetSdk.Common.Options;
 using BinancePayDotnetSdk.Common.Utils;
 
@@ -31,25 +30,6 @@ namespace BinancePayDotnetSdk.Common.Http
             };
         }
 
-        internal async Task<TResponseModel> GetAsync<TResponseModel>(string url) 
-            where TResponseModel : ApiResponseModel<ApiResponseDataModel>
-
-        {
-            try
-            {
-                UpdateHttpClientHeaders();
-                HttpResponseMessage response = await _httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-
-                return JsonSerializer.Deserialize<TResponseModel>(await response.Content.ReadAsStringAsync());
-            }
-            catch (Exception e)
-            {
-                ClientLogger.Error($"{nameof(GetAsync)}<{typeof(TResponseModel).Name}>", e);
-                return null;
-            }
-        }
-        
         internal async Task<TResponseModel> PostAsync<TRequestForm, TResponseModel>(string url, TRequestForm form) 
             where TRequestForm : ApiRequestForm 
             where TResponseModel : new()
@@ -62,7 +42,8 @@ namespace BinancePayDotnetSdk.Common.Http
                 HttpResponseMessage response = await _httpClient.PostAsync(url, new StringContent(body , Encoding.UTF8, "application/json"));
                 response.EnsureSuccessStatusCode();
                 ClientLogger.Info($"POST {url}");
-                return JsonSerializer.Deserialize<TResponseModel>(await response.Content.ReadAsStringAsync());
+                var test = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<TResponseModel>(test);
             }
             catch (Exception e)
             {

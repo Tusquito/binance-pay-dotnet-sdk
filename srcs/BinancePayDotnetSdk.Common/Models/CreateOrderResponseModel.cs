@@ -1,6 +1,6 @@
 ﻿namespace BinancePayDotnetSdk.Common.Models
 {
-    public class CreateOrderResponseModel : ApiResponseModel<CreateOrderObjectResponseDataModel>
+    public class CreateOrderResponseModel : ApiResponseModel<CreateOrderResponseDataModel>
     {
         
     }

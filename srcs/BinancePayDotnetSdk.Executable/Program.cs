@@ -28,10 +28,13 @@ namespace BinancePayDotnetSdk.Executable
                 MerchantTradeNo = random.Next().ToString(),
                 ProductName = "Test Product Name",
                 ProductDetail = "Test Product Detail",
-                TotalFee = 0.5
+                TotalFee = 0.01
             });
-            
-            Console.WriteLine(test.Data.QrCodeLink);
+                
+            var test2 = await client.QueryOrderAsync(new QueryOrderForm
+            {
+                PrepayId = test.Data.PrepayId
+            });
         }
     }
 }

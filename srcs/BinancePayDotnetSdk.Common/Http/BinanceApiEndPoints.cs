@@ -6,5 +6,7 @@
         public const string CreateOrder = "/binancepay/openapi/order";
         // POST
         public const string CloseOrder = "/binancepay/openapi/order/close";
+        // POST
+        public const string QueryOrder = "/binancepay/openapi/order/query";
     }
 }
