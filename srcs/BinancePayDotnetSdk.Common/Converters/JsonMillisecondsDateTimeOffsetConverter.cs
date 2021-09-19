@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace BinancePayDotnetSdk.Common.Converters
 {
-    public class DateTimeOffsetFromMillisecondsConverter : JsonConverter<DateTimeOffset>
+    public class JsonMillisecondsDateTimeOffsetConverter : JsonConverter<DateTimeOffset>
     {
         public override DateTimeOffset Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
@@ -13,7 +13,7 @@ namespace BinancePayDotnetSdk.Common.Converters
                 return DateTimeOffset.FromUnixTimeMilliseconds(milliseconds);
             }
             
-            throw new JsonException("This Number value can't be converted to DateTimeOffset"); 
+            throw new JsonException("This integer value can't be converted to DateTimeOffset"); 
         }
 
         public override void Write(Utf8JsonWriter writer, DateTimeOffset value, JsonSerializerOptions options)

@@ -23,7 +23,7 @@ namespace BinancePayDotnetSdk.Common.Models
         /// expire time in milli seconds
         /// </summary>
         [JsonPropertyName("expireTime")] 
-        [JsonConverter(typeof(DateTimeOffsetFromMillisecondsConverter))]
+        [JsonConverter(typeof(JsonMillisecondsDateTimeOffsetConverter))]
         public DateTimeOffset ExpireTime { get; set; }
         /// <summary>
         /// qr code img link

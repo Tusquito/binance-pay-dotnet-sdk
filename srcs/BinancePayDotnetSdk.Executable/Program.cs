@@ -22,7 +22,9 @@ namespace BinancePayDotnetSdk.Executable
                 SecretKey = Environment.GetEnvironmentVariable("BINANCE_SECRET_KEY"),
                 MerchantId = Environment.GetEnvironmentVariable("BINANCE_MERCHANT_ID")
             });
+            
             Random random = new Random(Guid.NewGuid().GetHashCode());
+            
             var test = await client.CreateOrderAsync(new CreateOrderForm
             {
                 MerchantTradeNo = random.Next().ToString(),

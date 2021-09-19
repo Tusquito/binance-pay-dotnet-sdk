@@ -52,7 +52,7 @@ namespace BinancePayDotnetSdk.Common.Models
         /// order amount
         /// </summary>
         [JsonPropertyName("totalFee")]
-        [JsonConverter(typeof(CustomDoubleConverter))]
+        [JsonConverter(typeof(JsonStringDoubleConverter))]
         public double TotalFee { get; set; }
         /// <summary>
         /// product name
@@ -73,13 +73,13 @@ namespace BinancePayDotnetSdk.Common.Models
         /// Timestamp when transaction happened
         /// </summary>
         [JsonPropertyName("transactTime")]
-        [JsonConverter(typeof(DateTimeOffsetFromMillisecondsConverter))]
+        [JsonConverter(typeof(JsonMillisecondsDateTimeOffsetConverter))]
         public DateTimeOffset TransactTime { get; set; }
         /// <summary>
         /// Timestamp when order was created
         /// </summary>
         [JsonPropertyName("createTime")]
-        [JsonConverter(typeof(DateTimeOffsetFromMillisecondsConverter))]
+        [JsonConverter(typeof(JsonMillisecondsDateTimeOffsetConverter))]
         public DateTimeOffset CreateTime { get; set; }
         /// <summary>
         /// only merchant got approved by Binance Operation's approval will receive this payerInfo

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using BinancePayDotnetSdk.Common.Converters;
 using BinancePayDotnetSdk.Common.Enums;
 
 namespace BinancePayDotnetSdk.Common.Models
@@ -15,7 +16,8 @@ namespace BinancePayDotnetSdk.Common.Models
         /// refer to https://developers.binance.com/docs/binance-pay/api-order-query#result-code
         /// </summary>
         [JsonPropertyName("code")] 
-        public string Code { get; set; }
+        [JsonConverter(typeof(JsonEnumIntConverter<ResponseResultCode>))]
+        public ResponseResultCode Code { get; set; }
         [JsonPropertyName("data")]
         public TData Data { get; set; }
         [JsonPropertyName("errorMessage")]

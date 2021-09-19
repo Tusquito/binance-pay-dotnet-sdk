@@ -11,7 +11,7 @@ namespace BinancePayDotnetSdk.Common.Forms
         /// minimum unit: 0.01, minimum equivalent value: 0.5 USD
         /// </summary>
         [JsonPropertyName("totalFee")]
-        [JsonConverter(typeof(CustomDoubleConverter))]
+        [JsonConverter(typeof(JsonStringDoubleConverter))]
         public double TotalFee { get; set; }
         /// <summary>
         /// maximum length 256
