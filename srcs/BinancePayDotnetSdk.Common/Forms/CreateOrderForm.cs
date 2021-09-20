@@ -4,7 +4,10 @@ using BinancePayDotnetSdk.Common.Enums;
 
 namespace BinancePayDotnetSdk.Common.Forms
 {
-    public class CreateOrderForm : ApiRequestForm
+    /// <summary>
+    /// https://developers.binance.com/docs/binance-pay/api-order-create#request-parameters
+    /// </summary>
+    public class CreateOrderForm : ApiSubMerchantRequestForm
     {
         /// <summary>
         /// Order amount.

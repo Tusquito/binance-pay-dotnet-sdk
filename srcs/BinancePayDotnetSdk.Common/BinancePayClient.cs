@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using BinancePayDotnetSdk.Common.Forms;
 using BinancePayDotnetSdk.Common.Http;
@@ -46,10 +46,21 @@ namespace BinancePayDotnetSdk.Common
             {
                 ClientLogger.Info($"MerchantId: {configuration.MerchantId}");
             }
-
+            if (string.IsNullOrEmpty(configuration.BinanceApiBaseUrl))
+            {
+                ClientLogger.Error("BinanceApiBaseUrl can't be null or empty.", new ArgumentException());
+            }
+            else
+            {
+                ClientLogger.Info($"BinanceApiBaseUrl: {configuration.BinanceApiBaseUrl}");
+            }
+            
             _httpClient = new BinancePayHttpClient(configuration);
         }
 
+        /// <summary>
+        /// Create order API used for merchant/partner to initiate acquiring order.
+        /// </summary>
         public async Task<CreateOrderResponseModel> CreateOrderAsync(CreateOrderForm form)
         {
             try
@@ -62,7 +73,10 @@ namespace BinancePayDotnetSdk.Common
                 return null;
             }
         }
-        
+        /// <summary>
+        /// Close order API used for merchant/partner to close order without any prior payment activities triggered by user.
+        /// The successful close result will be notified asynchronously through Order Notification Webhook with bizStatus = "PAY_CLOSED".
+        /// </summary>
         public async Task<CloseOrderResponseModel> CloseOrderAsync(CloseOrderForm form)
         {
             try
@@ -75,7 +89,9 @@ namespace BinancePayDotnetSdk.Common
                 return null;
             }
         }
-        
+        /// <summary>
+        /// Query order API used for merchant/partner to query order status.
+        /// </summary>
         public async Task<QueryOrderResponseModel> QueryOrderAsync(QueryOrderForm form)
         {
             try

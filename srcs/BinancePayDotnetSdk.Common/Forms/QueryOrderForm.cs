@@ -2,7 +2,10 @@
 
 namespace BinancePayDotnetSdk.Common.Forms
 {
-    public class QueryOrderForm : ApiRequestForm
+    /// <summary>
+    /// https://developers.binance.com/docs/binance-pay/api-order-query#request-parameters
+    /// </summary>
+    public class QueryOrderForm : ApiSubMerchantRequestForm
     {
         /// <summary>
         /// Binance unique order id

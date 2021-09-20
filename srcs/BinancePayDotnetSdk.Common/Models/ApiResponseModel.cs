@@ -4,6 +4,9 @@ using BinancePayDotnetSdk.Common.Enums;
 
 namespace BinancePayDotnetSdk.Common.Models
 {
+    /// <summary>
+    /// https://developers.binance.com/docs/binance-pay/api-order-create#response-parameters
+    /// </summary>
     public class ApiResponseModel<TData>
     {
         /// <summary>

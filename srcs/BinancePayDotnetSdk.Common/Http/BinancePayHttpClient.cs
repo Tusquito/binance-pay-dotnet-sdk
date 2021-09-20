@@ -31,7 +31,7 @@ namespace BinancePayDotnetSdk.Common.Http
         }
 
         internal async Task<TResponseModel> PostAsync<TRequestForm, TResponseModel>(string url, TRequestForm form) 
-            where TRequestForm : ApiRequestForm 
+            where TRequestForm : ApiMerchantRequestForm 
             where TResponseModel : new()
         {
             try
