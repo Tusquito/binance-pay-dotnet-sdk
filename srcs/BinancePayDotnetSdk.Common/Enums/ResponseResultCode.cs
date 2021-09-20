@@ -7,6 +7,10 @@
     {
         SUCCESS = 000000,
         /// <summary>
+        /// Reason: Server error.
+        /// </summary>
+        SERVER_ERROR = 50001,
+        /// <summary>
         /// Reason: An unknown error occurred while processing the request.
         /// Solution: Try again later.
         /// </summary>
@@ -69,8 +73,37 @@
         /// </summary>
         INVALID_ACCOUNT_STATUS = 400203,
         /// <summary>
+        /// Reason: The Order is not applicable to close as it was paid or has any payment activity on the way.
+        /// </summary>
+        INVALID_ORDER_STATUS = 400204,
+        /// <summary>
+        /// Reason: Sub-merchant already exists.
+        /// Solution: Please check merchant name.
+        /// </summary>
+        SUB_MERCHANT_EXISTS = 400205,
+        /// <summary>
         /// Reason: The sub merchant does not exist or is in an unavailable state.
         /// </summary>
-        SUB_MERCHANT_INVALID = 400206
+        SUB_MERCHANT_INVALID = 400206,
+        /// <summary>
+        /// Reason: Invalid prepayId.
+        /// </summary>
+        INVALID_PREPAY_ID = 400301,
+        /// <summary>
+        /// Reason: Refund attempts more than 10 times.
+        /// </summary>
+        TOO_MANY_REFUND_ATTEMPTS = 400302,
+        /// <summary>
+        /// Reason: Refund amount is grater than remaining amount.
+        /// </summary>
+        INVALID_REFUND_AMOUNT = 400303,
+        /// <summary>
+        /// Reason: The merchant account remaining amount is not enough to do refund.
+        /// </summary>
+        ACCOUNT_REMAINING_AMOUNT_NOT_ENOUGH = 400304
+        
+        
+        
+        
     }
 }
