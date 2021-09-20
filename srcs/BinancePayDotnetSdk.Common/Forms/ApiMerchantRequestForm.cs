@@ -2,7 +2,7 @@
 
 namespace BinancePayDotnetSdk.Common.Forms
 {
-    public class ApiMerchantRequestForm
+    public class ApiMerchantRequestForm : ApiRequestForm
     {
         /// <summary>
         /// The merchant account id, issued when merchant been created at Binance.

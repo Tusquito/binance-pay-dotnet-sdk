@@ -3,12 +3,14 @@
     internal static class BinanceApiEndPoints
     {
         // POST
-        public const string CreateOrder = "/binancepay/openapi/order";
+        internal const string CreateOrder = "/binancepay/openapi/order";
         // POST
-        public const string CloseOrder = "/binancepay/openapi/order/close";
+        internal const string CloseOrder = "/binancepay/openapi/order/close";
         // POST
-        public const string QueryOrder = "/binancepay/openapi/order/query";
+        internal const string QueryOrder = "/binancepay/openapi/order/query";
         // POST
-        public const string TransferFund = "/binancepay/openapi/wallet/transfer";
+        internal const string TransferFund = "/binancepay/openapi/wallet/transfer";
+        // POST
+        internal const string RefundOrder = "/binancepay/openapi/order/refund";
     }
 }

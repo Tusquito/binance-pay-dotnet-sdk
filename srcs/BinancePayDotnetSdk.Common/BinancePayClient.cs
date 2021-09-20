@@ -65,7 +65,7 @@ namespace BinancePayDotnetSdk.Common
         {
             try
             {
-                return await _httpClient.PostAsync<CreateOrderForm, CreateOrderResponseModel>(BinanceApiEndPoints.CreateOrder, form);
+                return await _httpClient.PostMerchantRequestAsync<CreateOrderForm, CreateOrderResponseModel>(BinanceApiEndPoints.CreateOrder, form);
             }
             catch (Exception e)
             {
@@ -81,7 +81,7 @@ namespace BinancePayDotnetSdk.Common
         {
             try
             {
-                return await _httpClient.PostAsync<CloseOrderForm, CloseOrderResponseModel>(BinanceApiEndPoints.CloseOrder, form);
+                return await _httpClient.PostMerchantRequestAsync<CloseOrderForm, CloseOrderResponseModel>(BinanceApiEndPoints.CloseOrder, form);
             }
             catch (Exception e)
             {
@@ -102,7 +102,7 @@ namespace BinancePayDotnetSdk.Common
                         "You can't query orders by merchantTradeNo and prepayId at the same time, please choose one and try again.");
                 }
                 
-                return await _httpClient.PostAsync<QueryOrderForm, QueryOrderResponseModel>(BinanceApiEndPoints.QueryOrder, form);
+                return await _httpClient.PostMerchantRequestAsync<QueryOrderForm, QueryOrderResponseModel>(BinanceApiEndPoints.QueryOrder, form);
             }
             catch (Exception e)
             {
@@ -117,11 +117,27 @@ namespace BinancePayDotnetSdk.Common
         {
             try
             {
-                return await _httpClient.PostAsync<TransferFundForm, TransferFundResponseModel>(BinanceApiEndPoints.TransferFund, form);
+                return await _httpClient.PostMerchantRequestAsync<TransferFundForm, TransferFundResponseModel>(BinanceApiEndPoints.TransferFund, form);
             }
             catch (Exception e)
             {
                 ClientLogger.Error($"{nameof(TransferFundAsync)}", e);
+                return null;
+            }
+        }
+        
+        /// <summary>
+        /// Refund order API used for Marchant/Partner to refund for a successful payment.
+        /// </summary>
+        public async Task<RefundOrderResponseModel> RefundOrderAsync(RefundOrderForm form)
+        {
+            try
+            {
+                return await _httpClient.PostAsync<RefundOrderForm, RefundOrderResponseModel>(BinanceApiEndPoints.RefundOrder, form);
+            }
+            catch (Exception e)
+            {
+                ClientLogger.Error($"{nameof(RefundOrderAsync)}", e);
                 return null;
             }
         }
