@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using BinancePayDotnetSdk.Common.Forms;
 using BinancePayDotnetSdk.Common.Http;
@@ -91,6 +91,21 @@ namespace BinancePayDotnetSdk.Common
             catch (Exception e)
             {
                 ClientLogger.Error($"{nameof(QueryOrderAsync)}", e);
+                return null;
+            }
+        }
+        /// <summary>
+        /// Fund transfer API used for merchant/partner to initiate Fund transfer between wallets.
+        /// </summary>
+        public async Task<TransferFundResponseModel> TransferFundAsync(TransferFundForm form)
+        {
+            try
+            {
+                return await _httpClient.PostAsync<TransferFundForm, TransferFundResponseModel>(BinanceApiEndPoints.TransferFund, form);
+            }
+            catch (Exception e)
+            {
+                ClientLogger.Error($"{nameof(TransferFundAsync)}", e);
                 return null;
             }
         }
