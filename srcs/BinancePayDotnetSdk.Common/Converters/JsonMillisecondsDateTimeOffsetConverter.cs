@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace BinancePayDotnetSdk.Common.Converters
 {
-    public class JsonMillisecondsDateTimeOffsetConverter : JsonConverter<DateTimeOffset>
+    internal class JsonMillisecondsDateTimeOffsetConverter : JsonConverter<DateTimeOffset>
     {
         public override DateTimeOffset Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

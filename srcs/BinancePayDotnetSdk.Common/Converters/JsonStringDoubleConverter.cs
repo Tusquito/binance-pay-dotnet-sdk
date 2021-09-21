@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace BinancePayDotnetSdk.Common.Converters
 {
-    public class JsonStringDoubleConverter: JsonConverter<double>
+    internal class JsonStringDoubleConverter: JsonConverter<double>
     {
         public override double Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

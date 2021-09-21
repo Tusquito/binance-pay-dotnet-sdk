@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace BinancePayDotnetSdk.Common.Converters
 {
-    public class JsonEnumIntConverter<T> : JsonConverter<T> where T : Enum
+    internal class JsonEnumIntConverter<T> : JsonConverter<T> where T : Enum
     {
         public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
