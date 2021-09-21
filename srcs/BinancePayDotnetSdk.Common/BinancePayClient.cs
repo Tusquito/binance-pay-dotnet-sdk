@@ -100,5 +100,21 @@ namespace BinancePayDotnetSdk.Common
                 return null;
             }
         }
+        
+        /// <summary>
+        /// Refund order API used for Marchant/Partner to refund for a successful payment.
+        /// </summary>
+        public async Task<QueryRefundOrderResponseModel> QueryRefundOrderAsync(QueryOrderForm form)
+        {
+            try
+            {
+                return await _httpClient.PostAsync<QueryOrderForm, QueryRefundOrderResponseModel>(BinanceApiEndPoints.QueryRefundOrder, form);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"{nameof(QueryRefundOrderAsync)}<{nameof(QueryRefundOrderResponseModel)}> {e.Message}");
+                return null;
+            }
+        }
     }
 }

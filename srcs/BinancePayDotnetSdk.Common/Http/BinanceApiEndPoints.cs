@@ -12,5 +12,7 @@
         internal const string TransferFund = "/binancepay/openapi/wallet/transfer";
         // POST
         internal const string RefundOrder = "/binancepay/openapi/order/refund";
+        // POST
+        internal const string QueryRefundOrder = "/binancepay/openapi/order/refund/query";
     }
 }

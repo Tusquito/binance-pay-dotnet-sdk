@@ -40,7 +40,5 @@ namespace BinancePayDotnetSdk.Executable
                     services.AddBinancePayClient(configuration);
                 });
         }
-            
-
     }
 }
