@@ -3,59 +3,18 @@ using System.Threading.Tasks;
 using BinancePayDotnetSdk.Common.Forms;
 using BinancePayDotnetSdk.Common.Http;
 using BinancePayDotnetSdk.Common.Models;
-using BinancePayDotnetSdk.Common.Options;
-using BinancePayDotnetSdk.Common.Utils;
+using Microsoft.Extensions.Logging;
 
 namespace BinancePayDotnetSdk.Common
 {
     public class BinancePayClient
     {
         private readonly BinancePayHttpClient _httpClient;
-        public BinancePayClient(ClientConfigurationOptions configuration)
+        private readonly ILogger<BinancePayClient> _logger;
+        public BinancePayClient(BinancePayHttpClient httpClient, ILogger<BinancePayClient> logger)
         {
-            if (configuration.EnableLogger)
-            {
-                ClientLogger.Enable();
-            }
-            else
-            {
-                ClientLogger.Disable();
-            }
-            
-            if (string.IsNullOrEmpty(configuration.ApiKey))
-            {
-                ClientLogger.Error("ApiKey can't be null or empty.", new ArgumentException());
-            }
-            else
-            {
-                ClientLogger.Info($"ApiKey: {configuration.ApiKey}");
-            }
-            if (string.IsNullOrEmpty(configuration.SecretKey))
-            {
-                ClientLogger.Error("SecretKey can't be null or empty.", new ArgumentException());
-            }
-            else
-            {
-                ClientLogger.Info($"SecretKey: {configuration.SecretKey}");
-            }
-            if (string.IsNullOrEmpty(configuration.MerchantId))
-            {
-                ClientLogger.Error("MerchantId can't be null or empty.", new ArgumentException());
-            }
-            else
-            {
-                ClientLogger.Info($"MerchantId: {configuration.MerchantId}");
-            }
-            if (string.IsNullOrEmpty(configuration.BinanceApiBaseUrl))
-            {
-                ClientLogger.Error("BinanceApiBaseUrl can't be null or empty.", new ArgumentException());
-            }
-            else
-            {
-                ClientLogger.Info($"BinanceApiBaseUrl: {configuration.BinanceApiBaseUrl}");
-            }
-            
-            _httpClient = new BinancePayHttpClient(configuration);
+            _httpClient = httpClient;
+            _logger = logger;
         }
 
         /// <summary>
@@ -69,7 +28,7 @@ namespace BinancePayDotnetSdk.Common
             }
             catch (Exception e)
             {
-                ClientLogger.Error($"{nameof(CreateOrderAsync)}", e);
+                _logger.LogError($"{nameof(CreateOrderAsync)}<{nameof(CreateOrderResponseModel)}> {e.Message}");
                 return null;
             }
         }
@@ -85,7 +44,7 @@ namespace BinancePayDotnetSdk.Common
             }
             catch (Exception e)
             {
-                ClientLogger.Error($"{nameof(CloseOrderAsync)}", e);
+                _logger.LogError($"{nameof(CloseOrderAsync)}<{nameof(CloseOrderResponseModel)}> {e.Message}");
                 return null;
             }
         }
@@ -106,7 +65,7 @@ namespace BinancePayDotnetSdk.Common
             }
             catch (Exception e)
             {
-                ClientLogger.Error($"{nameof(QueryOrderAsync)}", e);
+                _logger.LogError($"{nameof(QueryOrderAsync)}<{nameof(QueryOrderResponseModel)}> {e.Message}");
                 return null;
             }
         }
@@ -121,7 +80,7 @@ namespace BinancePayDotnetSdk.Common
             }
             catch (Exception e)
             {
-                ClientLogger.Error($"{nameof(TransferFundAsync)}", e);
+                _logger.LogError($"{nameof(TransferFundAsync)}<{nameof(TransferFundResponseModel)}> {e.Message}");
                 return null;
             }
         }
@@ -137,7 +96,7 @@ namespace BinancePayDotnetSdk.Common
             }
             catch (Exception e)
             {
-                ClientLogger.Error($"{nameof(RefundOrderAsync)}", e);
+                _logger.LogError($"{nameof(RefundOrderAsync)}<{nameof(RefundOrderResponseModel)}> {e.Message}");
                 return null;
             }
         }

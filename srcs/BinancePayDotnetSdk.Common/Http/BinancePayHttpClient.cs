@@ -7,27 +7,23 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using BinancePayDotnetSdk.Common.Forms;
 using BinancePayDotnetSdk.Common.Options;
-using BinancePayDotnetSdk.Common.Utils;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace BinancePayDotnetSdk.Common.Http
 {
-    internal class BinancePayHttpClient
+    public class BinancePayHttpClient
     {
         private readonly HttpClient _httpClient;
         private readonly ClientConfigurationOptions _configuration;
+        private readonly ILogger<BinancePayHttpClient> _logger;
         private static readonly Random Random = new(Guid.NewGuid().GetHashCode());
-        internal BinancePayHttpClient(ClientConfigurationOptions configuration)
+        public BinancePayHttpClient(IOptions<ClientConfigurationOptions> options, IHttpClientFactory httpClientFactory, ILogger<BinancePayHttpClient> logger)
         {
-            _configuration = configuration;
-            _httpClient = new HttpClient
-            {
-                BaseAddress = new Uri(configuration.BinanceApiBaseUrl),
-                DefaultRequestHeaders = 
-                {
-                    {BinanceApiRequestHeaders.Nonce, GenerateNonce()},
-                    {BinanceApiRequestHeaders.CertificateSn, configuration.ApiKey}
-                }
-            };
+            _logger = logger;
+            _httpClient = httpClientFactory.CreateClient(nameof(BinancePayHttpClient));
+            _httpClient.DefaultRequestHeaders.Add(BinanceApiRequestHeaders.Nonce, GenerateNonce());
+            _configuration = options.Value;
         }
         
         internal async Task<TResponseModel> PostMerchantRequestAsync<TRequestForm, TResponseModel>(string url, TRequestForm form) 
@@ -41,7 +37,7 @@ namespace BinancePayDotnetSdk.Common.Http
             }
             catch (Exception e)
             {
-                ClientLogger.Error($"{nameof(PostMerchantRequestAsync)}<{typeof(TRequestForm).Name}, {typeof(TResponseModel).Name}>", e);
+                _logger.LogError($"{nameof(PostMerchantRequestAsync)}<{typeof(TRequestForm).Name}, {typeof(TResponseModel).Name}> {e.Message}");
                 return new TResponseModel();
             }
         }
@@ -55,14 +51,12 @@ namespace BinancePayDotnetSdk.Common.Http
                 string body = JsonSerializer.Serialize(form);
                 UpdateHttpClientHeaders(body);
                 HttpResponseMessage response = await _httpClient.PostAsync(url, new StringContent(body , Encoding.UTF8, "application/json"));
-                response.EnsureSuccessStatusCode();
-                ClientLogger.Info($"POST {url}");
                 var test = await response.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<TResponseModel>(test);
             }
             catch (Exception e)
             {
-                ClientLogger.Error($"{nameof(PostAsync)}<{typeof(TRequestForm).Name}, {typeof(TResponseModel).Name}>", e);
+                _logger.LogError($"{nameof(PostAsync)}<{typeof(TRequestForm).Name}, {typeof(TResponseModel).Name}> {e.Message}");
                 return new TResponseModel();
             }
         }

@@ -1,4 +1,6 @@
-﻿using BinancePayDotnetSdk.Common.Options;
+﻿using System;
+using BinancePayDotnetSdk.Common.Http;
+using BinancePayDotnetSdk.Common.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -6,16 +8,23 @@ namespace BinancePayDotnetSdk.Common.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddBinancePayClient(IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddBinancePayClient(this IServiceCollection services, IConfiguration configuration)
         {
-            ClientConfigurationOptions clientConfigurationOptions = configuration.GetSection(ClientConfigurationOptions.Name).Get<ClientConfigurationOptions>();
-            
-            if (clientConfigurationOptions == null)
+            var clientConfig = configuration.GetSection(ClientConfigurationOptions.Name)
+                .Get<ClientConfigurationOptions>();
+            if (clientConfig.EnableLogger)
             {
-                return;
+                services.AddLogging();
             }
-
-            services.AddSingleton(new BinancePayClient(clientConfigurationOptions));
+            services.AddHttpClient(nameof(BinancePayHttpClient), config =>
+            {
+                config.BaseAddress = new Uri(clientConfig.BinanceApiBaseUrl);
+                config.DefaultRequestHeaders.Add(BinanceApiRequestHeaders.CertificateSn, clientConfig.ApiKey);
+            });
+            services.Configure<ClientConfigurationOptions>(configuration.GetSection(ClientConfigurationOptions.Name));
+            services.AddTransient<BinancePayHttpClient>();   
+            services.AddTransient<BinancePayClient>();
+            return services;
         }
     }
 }

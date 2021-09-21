@@ -1,42 +1,46 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using BinancePayDotnetSdk.Common;
+using BinancePayDotnetSdk.Common.Extensions;
 using BinancePayDotnetSdk.Common.Forms;
 using BinancePayDotnetSdk.Common.Options;
-using Nito.AsyncEx;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace BinancePayDotnetSdk.Executable
 {
     class Program
     {
-        private static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            AsyncContext.Run(() => MainAsync(args));
+            using IHost host = CreateHostBuilder(args).Build();
+            await host.StartAsync();
+            var payClient = host.Services.GetRequiredService<BinancePayClient>();
+            var order = await payClient.CreateOrderAsync(new CreateOrderForm
+            {
+                TotalFee = 0.01,
+                MerchantTradeNo = new Random(Guid.NewGuid().GetHashCode()).Next().ToString(),
+                ProductDetail = "test product detail",
+                ProductName = "test product name"
+            });
         }
 
-        private static async Task MainAsync(string[] args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            BinancePayClient client = new BinancePayClient(new ClientConfigurationOptions
-            {
-                ApiKey = Environment.GetEnvironmentVariable("BINANCE_API_KEY"),
-                SecretKey = Environment.GetEnvironmentVariable("BINANCE_SECRET_KEY"),
-                MerchantId = Environment.GetEnvironmentVariable("BINANCE_MERCHANT_ID")
-            });
-            
-            Random random = new Random(Guid.NewGuid().GetHashCode());
-            
-            var test = await client.CreateOrderAsync(new CreateOrderForm
-            {
-                MerchantTradeNo = random.Next().ToString(),
-                ProductName = "Test Product Name",
-                ProductDetail = "Test Product Detail",
-                TotalFee = 0.01
-            });
-                
-            var test2 = await client.QueryOrderAsync(new QueryOrderForm
-            {
-                PrepayId = test.Data.PrepayId
-            });
+            IConfiguration configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureServices((_, services) =>
+                {
+                    services.AddBinancePayClient(configuration);
+                });
         }
+            
+
     }
 }
