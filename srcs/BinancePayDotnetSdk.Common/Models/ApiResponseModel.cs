@@ -14,16 +14,16 @@ namespace BinancePayDotnetSdk.Common.Models
         /// </summary>
         [JsonConverter(typeof(JsonStringEnumConverter))]
         [JsonPropertyName("status")]
-        public ResponseStatus Status { get; set; }
+        public ResponseStatus Status { get; init; }
         /// <summary>
         /// refer to https://developers.binance.com/docs/binance-pay/api-order-query#result-code
         /// </summary>
         [JsonPropertyName("code")] 
         [JsonConverter(typeof(JsonEnumIntConverter<ResponseResultCode>))]
-        public ResponseResultCode Code { get; set; }
+        public ResponseResultCode Code { get; init; }
         [JsonPropertyName("data")]
-        public TData Data { get; set; }
+        public TData Data { get; init; }
         [JsonPropertyName("errorMessage")]
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage { get; init; }
     }
 }

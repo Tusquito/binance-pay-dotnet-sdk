@@ -14,31 +14,31 @@ namespace BinancePayDotnetSdk.Common.Models
         /// Maximum length 64.
         /// </summary>
         [JsonPropertyName("refundRequestId")]
-        public string RefundRequestId { get; set; }
+        public string RefundRequestId { get; init; }
         /// <summary>
         /// The unique ID assigned by Binance for the original order to be refunded.
         /// </summary>
         [JsonPropertyName("prepayId")]
-        public string PrepayId { get; set; }
+        public string PrepayId { get; init; }
         /// <summary>
         /// The total amount of prepay order.
         /// Minimum unit: 0.01, minimum equivalent value: 0.5 USD.
         /// </summary>
         [JsonPropertyName("orderAmount")]
         [JsonConverter(typeof(JsonStringDoubleConverter))]
-        public double OrderAmount { get; set; }
+        public double OrderAmount { get; init; }
         /// <summary>
         /// The total refunded amount included this refund request.
         /// </summary>
         [JsonPropertyName("refundedAmount")]
         [JsonConverter(typeof(JsonStringDoubleConverter))]
-        public double RefundedAmount { get; set; }
+        public double RefundedAmount { get; init; }
         /// <summary>
         /// The refund amount of this refund request.
         /// </summary>
         [JsonPropertyName("refundAmount")]
         [JsonConverter(typeof(JsonStringDoubleConverter))]
-        public double RefundAmount { get; set; }
+        public double RefundAmount { get; init; }
         /// <summary>
         /// The remaining attempts of this original order.
         /// If this value becomes 1, then your next refund request amount will be ignored.
@@ -46,17 +46,17 @@ namespace BinancePayDotnetSdk.Common.Models
         /// </summary>
         [JsonPropertyName("remainingAttempts")]
         [JsonConverter(typeof(JsonStringIntConverter))]
-        public int RemainingAttempts { get; set; }
+        public int RemainingAttempts { get; init; }
         /// <summary>
         /// The payer open id of this original order.
         /// </summary>
         [JsonPropertyName("payerOpenId")]
-        public string PayerOpenId { get; set; }
+        public string PayerOpenId { get; init; }
         /// <summary>
         /// The flag to mark this request refundRequestId is duplicate or not. It will be 'Y' or 'N'
         /// </summary>
         [JsonPropertyName("duplicateRequest")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public DuplicateRequestFlag DuplicateRequestFlag { get; set; }
+        public DuplicateRequestFlag DuplicateRequestFlag { get; init; }
     }
 }
