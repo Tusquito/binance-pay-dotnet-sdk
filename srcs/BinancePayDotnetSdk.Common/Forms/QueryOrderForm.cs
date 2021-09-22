@@ -8,7 +8,8 @@ namespace BinancePayDotnetSdk.Common.Forms
     public class QueryOrderForm : ApiSubMerchantRequestForm
     {
         /// <summary>
-        /// Binance unique order id
+        /// Binance unique order id.
+        /// Letter or digit, no other symbol allowed.
         /// </summary>
         [JsonPropertyName("prepayId")]
         public string PrepayId { get; set; }

@@ -17,6 +17,7 @@ namespace BinancePayDotnetSdk.Common.Models
         public string RefundRequestId { get; init; }
         /// <summary>
         /// The unique ID assigned by Binance for the original order to be refunded.
+        /// Letter or digit, no other symbol allowed.
         /// </summary>
         [JsonPropertyName("prepayId")]
         public string PrepayId { get; init; }

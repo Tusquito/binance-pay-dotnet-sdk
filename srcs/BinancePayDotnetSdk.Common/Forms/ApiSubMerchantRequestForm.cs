@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using BinancePayDotnetSdk.Common.Converters;
 
 namespace BinancePayDotnetSdk.Common.Forms
 {
@@ -9,11 +10,12 @@ namespace BinancePayDotnetSdk.Common.Forms
         /// The parameter subMerchantId is required when configuring show subMerchant info.
         /// </summary>
         [JsonPropertyName("subMerchantId")]
-        public string SubMerchantId { get; set; }
+        [JsonConverter(typeof(JsonStringLongConverter))]
+        public long SubMerchantId { get; set; }
 
         /// <summary>
         /// The order id, Unique identifier for the request.
-        /// letter or digit, no other symbol allowed, maximum length 32
+        /// Letter or digit, no other symbol allowed, maximum length 32.
         /// </summary>
         [JsonPropertyName("merchantTradeNo")]
         public string MerchantTradeNo { get; set; }

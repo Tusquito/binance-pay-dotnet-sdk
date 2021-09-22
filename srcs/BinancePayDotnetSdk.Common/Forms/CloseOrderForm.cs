@@ -9,7 +9,7 @@ namespace BinancePayDotnetSdk.Common.Forms
     {
         /// <summary>
         /// Binance unique order id.
-        /// letter or digit, no other symbol allowed, can not be empty if merchantTradeNo is empty
+        /// Letter or digit, no other symbol allowed.
         /// </summary>
         [JsonPropertyName("prepayId")]
         public string PrepayId { get; set; }
