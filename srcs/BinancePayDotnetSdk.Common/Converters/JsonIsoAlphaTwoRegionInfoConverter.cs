@@ -9,6 +9,11 @@ namespace BinancePayDotnetSdk.Common.Converters
     {
         public override RegionInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
+            if (reader.TokenType == JsonTokenType.Null)
+            {
+                return null;
+            }
+            
             if (reader.TokenType != JsonTokenType.String)
             {
                 throw new JsonException("This converter has to be used to convert string to RegionInfo.");

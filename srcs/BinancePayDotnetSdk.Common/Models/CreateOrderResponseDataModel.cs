@@ -16,26 +16,29 @@ namespace BinancePayDotnetSdk.Common.Models
         /// </summary>
         [JsonPropertyName("prepayId")]
         public string PrepayId { get; init; }
+        
         /// <summary>
-        /// operate entrance
-        /// "WEB", "APP"
+        /// Operate entrance.
         /// </summary>
         [JsonPropertyName("tradeType")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public TradeType TradeType { get; init; }
+        
         /// <summary>
-        /// expire time in milli seconds
+        /// Expire time.
         /// </summary>
         [JsonPropertyName("expireTime")] 
         [JsonConverter(typeof(JsonMillisecondsDateTimeOffsetConverter))]
         public DateTimeOffset ExpireTime { get; init; }
+        
         /// <summary>
-        /// qr code img link
+        /// QrCode img link.
         /// </summary>
         [JsonPropertyName("qrcodeLink")] 
         public string QrCodeLink { get; init; }
+        
         /// <summary>
-        /// qr contend info
+        /// Qr content info.
         /// </summary>
         [JsonPropertyName("qrContent")]
         public string QrContent { get; init; }

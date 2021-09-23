@@ -61,92 +61,92 @@ namespace BinancePayDotnetSdk.Common.Forms
         [MaxLength(1024)]
         [JsonPropertyName("address")] 
         public string Address { get; set; }
-        
+
         /// <summary>
         /// The legal name that is used in the registration, Required if merchantType is not Individual.
         /// </summary>
         [MaxLength(64)]
         [JsonPropertyName("companyName")]
-        public string CompanyName { get; set; }
-        
+        public string CompanyName { get; set; } = null;
+
         /// <summary>
         /// Registration number/Company tax ID, Required if merchantType is not Individual.
         /// </summary>
         [MaxLength(64)]
         [JsonPropertyName("registrationNumber")]
-        public string RegistrationNumber { get; set; }
-        
+        public string RegistrationNumber { get; set; } = null;
+
         /// <summary>
         /// Country of Registration, Required if merchantType is not Individual.
         /// </summary>
         [JsonPropertyName("registrationCountry")]
         [JsonConverter(typeof(JsonIsoAlphaTwoRegionInfoConverter))]
-        public RegionInfo RegistrationCountry { get; set; }
-        
+        public RegionInfo RegistrationCountry { get; set; } = null;
+
         /// <summary>
         /// Country of Registration, Required if merchantType is not Individual.
         /// </summary>
         [MaxLength(1024)]
         [JsonPropertyName("registrationAddress")]
-        public string RegistrationAddress { get; set; }
-        
+        public string RegistrationAddress { get; set; } = null;
+
         /// <summary>
         /// The date when the business registration is in effective, Required if merchantType is not Individual.
         /// UnixTimestamp in milliseconds.
         /// </summary>
         [JsonPropertyName("incorporationDate")]
         [JsonConverter(typeof(JsonMillisecondsDateTimeOffsetConverter))]
-        public DateTimeOffset IncorporationDate { get; set; }
+        public DateTimeOffset? IncorporationDate { get; set; } = null;
         
         [JsonPropertyName("storeType")]
         [JsonConverter(typeof(JsonEnumIntConverter<StoreType>))]
         public StoreType StoreType { get; set; }
-        
+
         /// <summary>
         /// Required if merchantType is not Individual.
         /// </summary>
         [JsonPropertyName("siteType")]
-        [JsonConverter(typeof(JsonEnumIntConverter<SiteType>))]
-        public SiteType SiteType { get; set; }
-        
+        [JsonConverter(typeof(JsonEnumIntConverter<SiteType?>))]
+        public SiteType? SiteType { get; set; } = null;
+
         /// <summary>
         /// The URL of the website, Required if siteType is Web.
         /// </summary>
         [MaxLength(256)]
         [JsonPropertyName("siteUrl")]
-        public string SiteUrl { get; set; }
-        
+        public string SiteUrl { get; set; } = null;
+
         [MaxLength(32)]
         [JsonPropertyName("siteName")]
-        public string SiteName { get; set; }
-        
+        public string SiteName { get; set; } = null;
+
         /// <summary>
         /// Required if merchantType is Individual.
         /// </summary>
         [JsonPropertyName("certificateType")]
-        [JsonConverter(typeof(JsonEnumIntConverter<CertificateType>))]
-        public CertificateType CertificateType { get; set; }
+        [JsonConverter(typeof(JsonEnumIntConverter<CertificateType?>))]
+        public CertificateType? CertificateType { get; set; } = null;
 
         /// <summary>
         /// Required if merchantType is Individual.
         /// </summary>
         [JsonPropertyName("certificateCountry")]
         [JsonConverter(typeof(JsonIsoAlphaTwoRegionInfoConverter))]
-        public RegionInfo CertificateCountry { get; set; }
-        
+        public RegionInfo CertificateCountry { get; set; } = null;
+
         /// <summary>
         /// Required if merchantType is Individual.
         /// </summary>
         [MaxLength(64)]
         [JsonPropertyName("certificateNumber")]
-        public string CertificateNumber { get; set; }
+        public string CertificateNumber { get; set; } = null;
 
         /// <summary>
         /// Certificate Valid Date, Required if merchantType is Individual.
         /// </summary>
         [JsonPropertyName("certificateValidDate")]
         [JsonConverter(typeof(JsonMillisecondsDateTimeOffsetConverter))]
-        public DateTimeOffset CertificateValidDate { get; set; }
+        public DateTimeOffset? CertificateValidDate { get; set; } = null;
         
         /// <summary>
         /// Contract date with ISV.

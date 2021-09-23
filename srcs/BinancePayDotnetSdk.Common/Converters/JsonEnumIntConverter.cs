@@ -9,23 +9,28 @@ namespace BinancePayDotnetSdk.Common.Converters
     {
         public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (reader.TokenType is JsonTokenType.Number or JsonTokenType.String)
+            switch (reader.TokenType)
             {
-                var enumDic = Enum.GetValues(typeof(T)).Cast<int>()
-                    .ToDictionary(item => item, item => Enum.GetName(typeof(T), item));
-
-                if (int.TryParse(reader.GetString(), out int enumValue) || reader.TryGetInt32(out enumValue))
+                case JsonTokenType.Null:
+                    return default;
+                case JsonTokenType.Number or JsonTokenType.String:
                 {
-                    if (enumDic.TryGetValue(enumValue, out string enumName))
+                    var enumDic = Enum.GetValues(typeof(T)).Cast<int>()
+                        .ToDictionary(item => item, item => Enum.GetName(typeof(T), item));
+
+                    if (int.TryParse(reader.GetString(), out int enumValue) || reader.TryGetInt32(out enumValue))
                     {
-                        return (T) Enum.Parse(typeof(T), enumName);
+                        if (enumDic.TryGetValue(enumValue, out string enumName))
+                        {
+                            return (T) Enum.Parse(typeof(T), enumName);
+                        }
                     }
+
+                    throw new JsonException($"{reader.GetString()} is not a {typeof(T).Name} value.");
                 }
-
-                throw new JsonException($"{reader.GetString()} is not a {typeof(T).Name} value.");
+                default:
+                    throw new JsonException($"This integer value can't be converted to {typeof(T).Name}");
             }
-
-            throw new JsonException($"This integer value can't be converted to {typeof(T).Name}");
         }
 
         public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)

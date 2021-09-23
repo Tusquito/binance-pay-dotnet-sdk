@@ -14,20 +14,25 @@ namespace BinancePayDotnetSdk.Common.Models
         /// </summary>
         [JsonPropertyName("tranId")]
         public string TransferId { get; init; }
+        
         /// <summary>
-        /// The transfer amount
+        /// The transfer amount.
         /// </summary>
         [JsonPropertyName("amount")]
         [JsonConverter(typeof(JsonStringDoubleConverter))]
         public double Amount { get; init; }
+        
         /// <summary>
-        /// SUCCESS (indicating that the transfer is completely successful), FAILURE (indicating that the transfer has failed, it may be that the transferor has a problem with the transferee), PROCESS (the transfer is in progress)
+        /// SUCCESS (indicating that the transfer is completely successful),
+        /// FAILURE (indicating that the transfer has failed, it may be that the transferor has a problem with the transferee),
+        /// PROCESS (the transfer is in progress)
         /// </summary>
         [JsonPropertyName("status")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public TransferStatusType Status { get; init; }
+        
         /// <summary>
-        /// transfer currency, e.g. "BUSD"
+        /// Transfer currency.
         /// </summary>
         [JsonPropertyName("currency")]
         [JsonConverter(typeof(JsonStringEnumConverter))]

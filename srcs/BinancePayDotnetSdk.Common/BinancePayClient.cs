@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BinancePayDotnetSdk.Common.Enums;
 using BinancePayDotnetSdk.Common.Forms;
 using BinancePayDotnetSdk.Common.Http;
 using BinancePayDotnetSdk.Common.Models;
@@ -93,6 +94,57 @@ namespace BinancePayDotnetSdk.Common
             }
         }
         
+        /// <summary>
+        /// Create Sub-merchant API used for merchant/partner.
+        /// </summary>
+        public async Task<CreateOrderResponseModel> CreateSubMerchantAsync(CreateSubMerchantRequestForm form)
+        {
+            try
+            {
+                form.MainMerchantId = _configuration.MerchantId;
+                
+                if (form.MerchantType == MerchantType.PERSONAL)
+                {
+                    if (form.CertificateValidDate == null
+                        || string.IsNullOrEmpty(form.CertificateNumber)
+                        || form.CertificateCountry == null
+                        || form.CertificateType == null)
+                    {
+                        throw new Exception("Some fields are missing for 'personal' merchant type.");
+                    }
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(form.CompanyName)
+                        || string.IsNullOrEmpty(form.RegistrationNumber)
+                        || form.RegistrationCountry == null
+                        || string.IsNullOrEmpty(form.RegistrationAddress)
+                        || form.IncorporationDate == null
+                        || form.SiteType == null)
+                    {
+                        throw new Exception("Some fields are missing for not 'personal' merchant type.");
+                    }
+                }
+
+                if (form.SiteType == SiteType.WEB && string.IsNullOrEmpty(form.SiteUrl))
+                {
+                    throw new Exception("Some fields are missing for 'web' site type.");
+                }
+
+                if (form.SiteType != SiteType.OTHERS && string.IsNullOrEmpty(form.SiteName))
+                {
+                    throw new Exception("Some fields are missing for not 'others' site type.");
+                }
+                
+                return await _httpClient.PostAsync<CreateSubMerchantRequestForm, CreateOrderResponseModel>(BinanceApiEndPoints.CreateSubMerchant, form);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"{nameof(CreateSubMerchantAsync)}<{nameof(CreateSubMerchantRequestForm)}> {e.Message}");
+                return null;
+            }
+        }
+
         /// <summary>
         /// Refund order API used for Marchant/Partner to refund for a successful payment.
         /// </summary>
