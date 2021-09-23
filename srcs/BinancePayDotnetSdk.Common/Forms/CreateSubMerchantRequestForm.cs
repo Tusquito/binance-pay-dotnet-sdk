@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Text.Json.Serialization;
 using BinancePayDotnetSdk.Common.Converters;
 using BinancePayDotnetSdk.Common.Enums;
@@ -9,7 +10,7 @@ namespace BinancePayDotnetSdk.Common.Forms
     /// <summary>
     /// https://developers.binance.com/docs/binance-pay/api-submerchant-add#request-parameters
     /// </summary>
-    public class CreateSubMerchantRequestForm
+    public class CreateSubMerchantRequestForm : ApiRequestForm
     {
         /// <summary>
         /// The partner merchant id, issued when partner merchant been created at Binance.
@@ -47,12 +48,12 @@ namespace BinancePayDotnetSdk.Common.Forms
         public string BrandLogoUrl { get; set; }
         
         /// <summary>
-        /// Iso alpha 2 country code (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), use "GO" if global.
-        /// Country/Region of Business Operation,Can be multiple, split by "," eg:"SG,US".
+        /// Country/Region of Business Operation. Can be multiple.".
         /// </summary>
         [Required]
         [JsonPropertyName("country")]
-        public string CountryCode  { get; set; }
+        [JsonConverter(typeof(JsonIsoAlphaTwoArrayRegionInfoConverter))]
+        public RegionInfo[] OperationCountries { get; set; }
         
         /// <summary>
         /// Store address.
@@ -77,10 +78,10 @@ namespace BinancePayDotnetSdk.Common.Forms
         
         /// <summary>
         /// Country of Registration, Required if merchantType is not Individual.
-        /// Iso alpha 2 country code (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), use "GO" if global.
         /// </summary>
         [JsonPropertyName("registrationCountry")]
-        public string RegistrationCountry { get; set; }
+        [JsonConverter(typeof(JsonIsoAlphaTwoRegionInfoConverter))]
+        public RegionInfo RegistrationCountry { get; set; }
         
         /// <summary>
         /// Country of Registration, Required if merchantType is not Individual.
@@ -127,11 +128,11 @@ namespace BinancePayDotnetSdk.Common.Forms
         public CertificateType CertificateType { get; set; }
 
         /// <summary>
-        /// Iso alpha 2 country code (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
         /// Required if merchantType is Individual.
         /// </summary>
         [JsonPropertyName("certificateCountry")]
-        public string CertificateCountry { get; set; }
+        [JsonConverter(typeof(JsonIsoAlphaTwoRegionInfoConverter))]
+        public RegionInfo CertificateCountry { get; set; }
         
         /// <summary>
         /// Required if merchantType is Individual.

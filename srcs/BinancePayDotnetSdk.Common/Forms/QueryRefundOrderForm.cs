@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BinancePayDotnetSdk.Common.Forms
 {
@@ -9,8 +10,9 @@ namespace BinancePayDotnetSdk.Common.Forms
     {
         /// <summary>
         /// The unique ID assigned by the merchant to identify a refund request.
-        /// Maximum length 64.
         /// </summary>
+        [Required]
+        [MaxLength(64)]
         [JsonPropertyName("refundRequestId")]
         public string RefundRequestId { get; set; }
     }

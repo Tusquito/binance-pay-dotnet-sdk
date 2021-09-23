@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using BinancePayDotnetSdk.Common.Forms;
 using BinancePayDotnetSdk.Common.Http;
 using BinancePayDotnetSdk.Common.Models;
+using BinancePayDotnetSdk.Common.Options;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace BinancePayDotnetSdk.Common
 {
@@ -11,10 +13,12 @@ namespace BinancePayDotnetSdk.Common
     {
         private readonly BinancePayHttpClient _httpClient;
         private readonly ILogger<BinancePayClient> _logger;
-        public BinancePayClient(BinancePayHttpClient httpClient, ILogger<BinancePayClient> logger)
+        private readonly ClientConfigurationOptions _configuration;
+        public BinancePayClient(BinancePayHttpClient httpClient, ILogger<BinancePayClient> logger, IOptions<ClientConfigurationOptions> options)
         {
             _httpClient = httpClient;
             _logger = logger;
+            _configuration = options.Value;
         }
 
         /// <summary>
@@ -24,7 +28,8 @@ namespace BinancePayDotnetSdk.Common
         {
             try
             {
-                return await _httpClient.PostMerchantRequestAsync<CreateOrderForm, CreateOrderResponseModel>(BinanceApiEndPoints.CreateOrder, form);
+                form.MerchantId = _configuration.MerchantId;
+                return await _httpClient.PostAsync<CreateOrderForm, CreateOrderResponseModel>(BinanceApiEndPoints.CreateOrder, form);
             }
             catch (Exception e)
             {
@@ -40,7 +45,8 @@ namespace BinancePayDotnetSdk.Common
         {
             try
             {
-                return await _httpClient.PostMerchantRequestAsync<CloseOrderForm, CloseOrderResponseModel>(BinanceApiEndPoints.CloseOrder, form);
+                form.MerchantId = _configuration.MerchantId;
+                return await _httpClient.PostAsync<CloseOrderForm, CloseOrderResponseModel>(BinanceApiEndPoints.CloseOrder, form);
             }
             catch (Exception e)
             {
@@ -61,7 +67,8 @@ namespace BinancePayDotnetSdk.Common
                         "You can't query orders by merchantTradeNo and prepayId at the same time, please choose one and try again.");
                 }
                 
-                return await _httpClient.PostMerchantRequestAsync<QueryOrderForm, QueryOrderResponseModel>(BinanceApiEndPoints.QueryOrder, form);
+                form.MerchantId = _configuration.MerchantId;
+                return await _httpClient.PostAsync<QueryOrderForm, QueryOrderResponseModel>(BinanceApiEndPoints.QueryOrder, form);
             }
             catch (Exception e)
             {
@@ -76,7 +83,8 @@ namespace BinancePayDotnetSdk.Common
         {
             try
             {
-                return await _httpClient.PostMerchantRequestAsync<TransferFundForm, TransferFundResponseModel>(BinanceApiEndPoints.TransferFund, form);
+                form.MerchantId = _configuration.MerchantId;
+                return await _httpClient.PostAsync<TransferFundForm, TransferFundResponseModel>(BinanceApiEndPoints.TransferFund, form);
             }
             catch (Exception e)
             {

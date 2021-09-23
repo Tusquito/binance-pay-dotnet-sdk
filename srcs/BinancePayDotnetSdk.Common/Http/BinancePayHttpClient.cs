@@ -25,22 +25,6 @@ namespace BinancePayDotnetSdk.Common.Http
             _httpClient.DefaultRequestHeaders.Add(BinanceApiRequestHeaders.Nonce, GenerateNonce());
             _configuration = options.Value;
         }
-        
-        internal async Task<TResponseModel> PostMerchantRequestAsync<TRequestForm, TResponseModel>(string url, TRequestForm form) 
-            where TRequestForm : ApiMerchantRequestForm 
-            where TResponseModel : new()
-        {
-            try
-            {
-                form.MerchantId = _configuration.MerchantId;
-                return await PostAsync<TRequestForm, TResponseModel>(url, form);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"{nameof(PostMerchantRequestAsync)}<{typeof(TRequestForm).Name}, {typeof(TResponseModel).Name}> {e.Message}");
-                return new TResponseModel();
-            }
-        }
 
         internal async Task<TResponseModel> PostAsync<TRequestForm, TResponseModel>(string url, TRequestForm form) 
             where TRequestForm : ApiRequestForm 
