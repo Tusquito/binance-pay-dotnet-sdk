@@ -11,7 +11,7 @@ namespace BinancePayDotnetSdk.Common.Converters
         {
             if (reader.TokenType != JsonTokenType.String)
             {
-                throw new JsonException("This converter has to be used to convert string to RegionInfo");
+                throw new JsonException("This converter has to be used to convert string to RegionInfo.");
             }
 
             try
@@ -27,7 +27,7 @@ namespace BinancePayDotnetSdk.Common.Converters
             }
             catch (Exception)
             {
-                throw new JsonException("This string can't be parse to RegionInfo");
+                throw new JsonException("This string can't be parsed to RegionInfo.");
             }
         }
 
